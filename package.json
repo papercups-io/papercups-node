@@ -1,0 +1,14 @@
+{
+  "name": "papercups-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Write some tests!'"
+  },
+  "author": "reichert621",
+  "license": "MIT",
+  "dependencies": {
+    "superagent": "^6.1.0"
+  }
+}
