@@ -42,8 +42,8 @@ const client = (token = process.env.PAPERCUPS_API_KEY, options = {}) => {
     list: async (query = {}) => {
       return get(`/api/v1/conversations`, query);
     },
-    retrieve: async (id) => {
-      return get(`/api/v1/conversations/${id}`);
+    retrieve: async (id, query = {}) => {
+      return get(`/api/v1/conversations/${id}`, query);
     },
     create: async (conversation) => {
       return post(`/api/v1/conversations`, {conversation});
@@ -60,8 +60,8 @@ const client = (token = process.env.PAPERCUPS_API_KEY, options = {}) => {
     list: async (query = {}) => {
       return get(`/api/v1/customers`, query);
     },
-    retrieve: async (id) => {
-      return get(`/api/v1/customers/${id}`);
+    retrieve: async (id, query = {}) => {
+      return get(`/api/v1/customers/${id}`, query);
     },
     create: async (customer) => {
       return post(`/api/v1/customers`, {customer});
@@ -78,8 +78,8 @@ const client = (token = process.env.PAPERCUPS_API_KEY, options = {}) => {
     list: async (query = {}) => {
       return get(`/api/v1/messages`, query);
     },
-    retrieve: async (id) => {
-      return get(`/api/v1/messages/${id}`);
+    retrieve: async (id, query = {}) => {
+      return get(`/api/v1/messages/${id}`, query);
     },
     create: async (message) => {
       return post(`/api/v1/messages`, {message});
