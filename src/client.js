@@ -3,111 +3,89 @@ const request = require('superagent');
 const client = (token = process.env.PAPERCUPS_API_KEY, options = {}) => {
   const {host = 'https://app.papercups.io'} = options;
 
-  const me = async () => {
+  const get = async (endpoint, query = {}) => {
     return request
-      .get(`${host}/api/v1/me`)
+      .get(`${host}${endpoint}`)
       .set('Authorization', `Bearer ${token}`)
+      .query(query)
       .then((res) => res.body.data);
+  };
+
+  const post = async (endpoint, body = {}) => {
+    return request
+      .post(`${host}${endpoint}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(body)
+      .then((res) => res.body.data);
+  };
+
+  const put = async (endpoint, body = {}) => {
+    return request
+      .put(`${host}${endpoint}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(body)
+      .then((res) => res.body.data);
+  };
+
+  const destroy = async (endpoint) => {
+    return request
+      .del(`${host}${endpoint}`)
+      .set('Authorization', `Bearer ${token}`)
+      .then((res) => res.body);
+  };
+
+  const me = async () => {
+    return get(`/api/v1/me`);
   };
 
   const conversations = {
     list: async (query = {}) => {
-      return request
-        .get(`${host}/api/v1/conversations`)
-        .set('Authorization', `Bearer ${token}`)
-        .query(query)
-        .then((res) => res.body.data);
+      return get(`/api/v1/conversations`, query);
     },
     retrieve: async (id) => {
-      return request
-        .get(`${host}/api/v1/conversations/${id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .then((res) => res.body.data);
+      return get(`/api/v1/conversations/${id}`);
     },
     create: async (conversation) => {
-      return request
-        .post(`${host}/api/v1/conversations`)
-        .set('Authorization', `Bearer ${token}`)
-        .send({conversation})
-        .then((res) => res.body.data);
+      return post(`/api/v1/conversations`, {conversation});
     },
     update: async (id, updates) => {
-      return request
-        .put(`${host}/api/v1/conversations/${id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .send({conversation: updates})
-        .then((res) => res.body.data);
+      return put(`/api/v1/conversations/${id}`, {conversation: updates});
     },
     destroy: async (id) => {
-      return request
-        .del(`${host}/api/v1/conversations/${id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .then((res) => res.body);
+      return destroy(`/api/v1/conversations/${id}`);
     },
   };
 
   const customers = {
     list: async (query = {}) => {
-      return request
-        .get(`${host}/api/v1/customers`)
-        .set('Authorization', `Bearer ${token}`)
-        .query(query)
-        .then((res) => res.body.data);
+      return get(`/api/v1/customers`, query);
     },
     retrieve: async (id) => {
-      return request
-        .get(`${host}/api/v1/customers/${id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .then((res) => res.body.data);
+      return get(`/api/v1/customers/${id}`);
     },
     create: async (customer) => {
-      return request
-        .post(`${host}/api/v1/customers`)
-        .set('Authorization', `Bearer ${token}`)
-        .send({customer})
-        .then((res) => res.body.data);
+      return post(`/api/v1/customers`, {customer});
     },
     update: async (id, updates) => {
-      return request
-        .put(`${host}/api/v1/customers/${id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .send({customer: updates})
-        .then((res) => res.body.data);
+      return put(`/api/v1/customers/${id}`, {customer: updates});
     },
     destroy: async (id) => {
-      return request
-        .del(`${host}/api/v1/customers/${id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .then((res) => res.body);
+      return destroy(`/api/v1/customers/${id}`);
     },
   };
 
   const messages = {
     list: async (query = {}) => {
-      return request
-        .get(`${host}/api/v1/messages`)
-        .set('Authorization', `Bearer ${token}`)
-        .query(query)
-        .then((res) => res.body.data);
+      return get(`/api/v1/messages`, query);
     },
     retrieve: async (id) => {
-      return request
-        .get(`${host}/api/v1/messages/${id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .then((res) => res.body.data);
+      return get(`/api/v1/messages/${id}`);
     },
     create: async (message) => {
-      return request
-        .post(`${host}/api/v1/messages`)
-        .set('Authorization', `Bearer ${token}`)
-        .send({message})
-        .then((res) => res.body.data);
+      return post(`/api/v1/messages`, {message});
     },
     destroy: async (id) => {
-      return request
-        .del(`${host}/api/v1/messages/${id}`)
-        .set('Authorization', `Bearer ${token}`)
-        .then((res) => res.body);
+      return destroy(`/api/v1/messages/${id}`);
     },
   };
 
