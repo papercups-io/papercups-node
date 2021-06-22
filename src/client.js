@@ -38,6 +38,22 @@ const client = (token = process.env.PAPERCUPS_API_KEY, options = {}) => {
     return get(`/api/v1/me`);
   };
 
+  const reporting = async (query = {}) => {
+    return get(`/api/v1/reporting`, query);
+  };
+
+  const users = {
+    me: async () => {
+      return get(`/api/v1/me`);
+    },
+    list: async (query = {}) => {
+      return get(`/api/v1/users`, query);
+    },
+    retrieve: async (id, query = {}) => {
+      return get(`/api/v1/users/${id}`, query);
+    },
+  };
+
   const conversations = {
     list: async (query = {}) => {
       return get(`/api/v1/conversations`, query);
@@ -89,7 +105,78 @@ const client = (token = process.env.PAPERCUPS_API_KEY, options = {}) => {
     },
   };
 
-  return {me, conversations, customers, messages};
+  const tags = {
+    list: async (query = {}) => {
+      return get(`/api/v1/tags`, query);
+    },
+    retrieve: async (id, query = {}) => {
+      return get(`/api/v1/tags/${id}`, query);
+    },
+    create: async (tag) => {
+      return post(`/api/v1/tags`, {tag});
+    },
+    destroy: async (id) => {
+      return destroy(`/api/v1/tags/${id}`);
+    },
+  };
+
+  const issues = {
+    list: async (query = {}) => {
+      return get(`/api/v1/issues`, query);
+    },
+    retrieve: async (id, query = {}) => {
+      return get(`/api/v1/issues/${id}`, query);
+    },
+    create: async (issue) => {
+      return post(`/api/v1/issues`, {issue});
+    },
+    destroy: async (id) => {
+      return destroy(`/api/v1/issues/${id}`);
+    },
+  };
+
+  const notes = {
+    list: async (query = {}) => {
+      return get(`/api/v1/notes`, query);
+    },
+    retrieve: async (id, query = {}) => {
+      return get(`/api/v1/notes/${id}`, query);
+    },
+    create: async (note) => {
+      return post(`/api/v1/notes`, {note});
+    },
+    destroy: async (id) => {
+      return destroy(`/api/v1/notes/${id}`);
+    },
+  };
+
+  const companies = {
+    list: async (query = {}) => {
+      return get(`/api/v1/companies`, query);
+    },
+    retrieve: async (id, query = {}) => {
+      return get(`/api/v1/companies/${id}`, query);
+    },
+    create: async (company) => {
+      return post(`/api/v1/companies`, {company});
+    },
+    destroy: async (id) => {
+      return destroy(`/api/v1/companies/${id}`);
+    },
+  };
+
+  return {
+    me,
+    companies,
+    conversations,
+    customers,
+    issues,
+    messages,
+    notes,
+    reporting,
+    tags,
+    users,
+  };
 };
 
 module.exports = client;
