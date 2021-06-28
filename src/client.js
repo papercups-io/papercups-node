@@ -165,16 +165,54 @@ const client = (token = process.env.PAPERCUPS_API_KEY, options = {}) => {
     },
   };
 
+  const github = {
+    issues: {
+      list: async (query = {}) => {
+        return get(`/api/v1/github/issues`, query);
+      },
+      create: async (params) => {
+        return post(`/api/v1/github/issues`, params);
+      },
+    },
+    repos: {
+      list: async (query = {}) => {
+        return get(`/api/v1/github/repos`, query);
+      },
+    },
+  };
+
+  const slack = {
+    notify: async (params) => {
+      return post(`/api/v1/slack/notify`, params);
+    },
+  };
+
+  const gmail = {
+    send: async (params) => {
+      return post(`/api/v1/gmail/send`, params);
+    },
+  };
+
+  const twilio = {
+    send: async (params) => {
+      return post(`/api/v1/twilio/send`, params);
+    },
+  };
+
   return {
     me,
     companies,
     conversations,
     customers,
+    github,
+    gmail,
     issues,
     messages,
     notes,
     reporting,
+    slack,
     tags,
+    twilio,
     users,
   };
 };
